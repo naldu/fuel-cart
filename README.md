@@ -15,6 +15,7 @@ Single Cart Usage
 -----------------
 
 Add an item to the cart:
+
 	Cart::add(array(
 		'name' => 'Blue Ball',
 		'id' => 'toys_2937',
@@ -27,9 +28,11 @@ Multi Cart Usage
 ----------------
 
 Get an cart instance:
+
 	$cart = Cart::instance();
 
 Add an item to the cart, with options:
+
 	$cart::add(array(
 		'name' => 'Blue Ball',
 		'id' => 'toys_2937',
