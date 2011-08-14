@@ -6,10 +6,24 @@ Introduction
 
 The Cart package handles one or multiple carts.
 
-Configuration
--------------
+# Install
+
+Io install this package simply add this source to your package configuration file:
+
+	http://github.com/FrenkyNet
+
+and then you can simply type in:
+
+	php oil package install simplepie
+	
+and you're off
+
+# Configuration
 
 Copy config/cart.php to app/config/cart.php and change whatever setting in need of changing.
+
+
+# Usage
 
 Single Cart Usage
 -----------------
