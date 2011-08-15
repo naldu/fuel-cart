@@ -85,6 +85,16 @@ class Cart_Item {
 	}
 	
 	/**
+	 * Returns the item's options
+	 *
+	 * @return	array	an array of item options
+	 */
+	public function get_options()
+	{
+		return $this->options;
+	}
+	
+	/**
 	 * Returns the items total price
 	 *
 	 * @param	bool	$formatted		whether to format the returned price
