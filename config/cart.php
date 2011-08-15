@@ -21,16 +21,17 @@
 
 return array(
 
-	'cookie_prefix'	=> 'fuel_',
-	'cookie_suffix'	=> '_cart',
+	'storage_prefix'	=> 'fuel_',
+	'storage_suffix'	=> '_cart',
 	'default_cart'	=> 'default',
 	
 	'default' => array(
-		'expire'		=> 0,
 		'tax'			=> 0.19,
 		'name'			=> 'Cart',
 		'point_sep'		=> '.',
-		'thousands_sep'	=> ''
+		'thousands_sep'	=> '',
+		'storage'		=> 'cookie', // Can be cookie or session
+		'cookie_expire'		=> 0,
 	),
 	
 	'carts' => array(

@@ -34,7 +34,9 @@ class Cart_Basket {
 	{
 		$this->config = $config;
 		
-		$items = \Cookie::get($this->config['cookie_name'], array());
+		$storage_driver = '\\'.ucfirst($this->config['storage']);
+				
+		$items = $storage_driver::get($this->config['storage_key'], array());
 		
 		is_string($items) and $items = unserialize(stripslashes($items));
 		
@@ -46,7 +48,8 @@ class Cart_Basket {
 	
 	public function delete()
 	{
-		\Cookie::delete($this->config['cookie_name']);
+		$storage_driver = '\\'.ucfirst($this->config['storage']);
+		$storage_driver::delete($this->config['storage_key']);
 		$this->items = array();
 		$this->deleted = true;
 	}
@@ -170,7 +173,7 @@ class Cart_Basket {
 	}
 	
 	/**
-	 * Stores the cart in a cookie, this function is called in the shutdown routine.
+	 * Stores the cart, this function is called in the shutdown routine.
 	 */
 	public function save()
 	{
@@ -183,7 +186,9 @@ class Cart_Basket {
 		{
 			$items[$rowid] = $item->_as_array();
 		}
-		\Cookie::set($this->config['cookie_name'], serialize($items), $this->config['expire']);
+		
+		$storage_driver = '\\'.ucfirst($this->config['storage']);
+		$storage_driver::set($this->config['storage_key'], serialize($items), $this->config['cookie_expire']);
 	}
 	
 	/**
