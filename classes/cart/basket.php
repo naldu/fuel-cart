@@ -120,8 +120,9 @@ class Cart_Basket {
 	 * If the same item with the same options exists in the basket
 	 * the quantity is added to the item.
 	 *
-	 * @param	array	$values		an item array or array of item arrays
-	 * @param	array	$option		an item of item options
+	 * @param	array	$values			an item array or array of item arrays
+	 * @param	array	$option			an item of item options
+	 * @param	bool	$force_single	force single item insert
 	 * @return	string|array	rowid or array of rowids
 	 */
 	public function add($values, $options = array(), $force_single = false)
@@ -136,7 +137,7 @@ class Cart_Basket {
 			return $rowids;
 		}
 		
-		$required = array('id', 'name', 'price', 'qty');
+		$required = array('id', 'name', 'price');
 			
 		foreach($required as $field)
 		{
@@ -145,6 +146,8 @@ class Cart_Basket {
 				throw new \InvalidCartItemException('Invalid cart item, missing value: '.$field);
 			}
 		}
+		
+		array_key_exists('qty', $values) or $values['qty'] = 1;
 		
 		$rowid = $values['id'].'::'.sha1(var_export($options, true));
 		
