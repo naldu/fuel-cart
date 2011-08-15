@@ -4,7 +4,12 @@ Cart package for Fuel
 Introduction
 ------------
 
-The Cart package handles one or multiple carts.
+The Cart package handles one or multiple carts. Some specs:
+
++ Handles one or multiple Carts
++ Option support for Items
++ Options can add value to the product price.
++ Very easy to use. ;)
 
 # Install
 

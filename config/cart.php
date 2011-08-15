@@ -31,7 +31,7 @@ return array(
 		'point_sep'		=> '.',
 		'thousands_sep'	=> '',
 		'storage'		=> 'cookie', // Can be cookie or session
-		'cookie_expire'		=> 0,
+		'cookie_expire'	=> 0,
 	),
 	
 	'carts' => array(
