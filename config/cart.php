@@ -21,19 +21,26 @@
 
 return array(
 
-	'cookie_prefix' => 'fuel_',
-	'cookie_suffix' => '_cart',
-	'default_cart' => 'default',
+	'cookie_prefix'	=> 'fuel_',
+	'cookie_suffix'	=> '_cart',
+	'default_cart'	=> 'default',
 	
 	'default' => array(
-		'expire' => 0,
-		'tax' => 0.19,
-		'name' => 'Cart',
-		'point_sep' => '.',
-		'thousands_sep' => ''
+		'expire'		=> 0,
+		'tax'			=> 0.19,
+		'name'			=> 'Cart',
+		'point_sep'		=> '.',
+		'thousands_sep'	=> ''
 	),
 	
 	'carts' => array(
-		'default' => array(),
+		'default'	=> array(),
+		
+		// Add your carts below
+		
+		/* 'your_cart' => array(
+			'name'	=> 'My Cart',
+			'tax'	=> 0.08
+		), */
 	),
 );
