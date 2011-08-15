@@ -23,7 +23,7 @@ return array(
 
 	'storage_prefix'	=> 'fuel_',
 	'storage_suffix'	=> '_cart',
-	'default_cart'	=> 'default',
+	'default_cart'		=> 'default',
 	
 	'default' => array(
 		'tax'			=> 0.19,

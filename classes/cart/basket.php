@@ -33,7 +33,7 @@ class Cart_Basket {
 	public function __construct($config)
 	{
 		$this->config = $config;
-		
+				
 		$storage_driver = '\\'.ucfirst($this->config['storage']);
 				
 		$items = $storage_driver::get($this->config['storage_key'], array());
@@ -95,6 +95,17 @@ class Cart_Basket {
 	}
 	
 	/**
+	 * Check whether the cart holds a specific item
+	 *
+	 * @param	string	$rowid		the item's rowid
+	 * @return	bool	whether the item is in the cart
+	 */
+	public function has_item($rowid)
+	{
+		return array_key_exists($rowid, $this->items);
+	}
+	
+	/**
 	 * Get all the items from the cart
 	 * 
 	 * @return array	an array of cart items
@@ -109,7 +120,7 @@ class Cart_Basket {
 	 *
 	 * @return int	number for items
 	 */
-	public function item_count()
+	public function num_items()
 	{
 		return count($this->items);
 	}
@@ -230,6 +241,21 @@ class Cart_Basket {
 		}
 		return round($price, 2);
 	}
+	
+	/**
+	 * Returns quantity total
+	 *
+	 * @return	int		the quantity total.
+	 */
+	 public function total_qty()
+	 {
+	 	$total = 0;
+	 	foreach($this->items as $item)
+	 	{
+	 		$total += $item->get_qty();
+	 	}
+	 	return $total;
+	 }
 	
 	/**
 	 * Updates an items rowid.
