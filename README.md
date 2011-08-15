@@ -14,7 +14,7 @@ Io install this package simply add this source to your package configuration fil
 
 and then you can simply type in:
 
-	php oil package install simplepie
+	php oil package install cart
 	
 and you're off
 
