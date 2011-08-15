@@ -30,13 +30,18 @@ class Cart_Basket {
 	 */
 	protected $deleted = false;
 	
+	/**
+	 *	Storage class (Cookie or Session)
+	 */
+	protected $storage_class;
+	
 	public function __construct($config)
 	{
 		$this->config = $config;
 				
-		$storage_driver = '\\'.ucfirst($this->config['storage']);
+		$this->storage_class = '\\'.ucfirst($this->config['storage']);
 				
-		$items = $storage_driver::get($this->config['storage_key'], array());
+		$items = call_user_func(array($this->storage_class, 'get'), $this->config['storage_key'], array());
 		
 		is_string($items) and $items = unserialize(stripslashes($items));
 		
@@ -46,11 +51,14 @@ class Cart_Basket {
 		}
 	}
 	
+	/**
+	 * Delete the cart.
+	 */
 	public function delete()
 	{
-		$storage_driver = '\\'.ucfirst($this->config['storage']);
-		$storage_driver::delete($this->config['storage_key']);
+		call_user_func(array($this->storage_class, 'delete'), $this->config['storage_key']);
 		$this->items = array();
+		// Mark as deleted to it doesn't get saved (no session/cookie polution).
 		$this->deleted = true;
 	}
 	
@@ -201,8 +209,7 @@ class Cart_Basket {
 			$items[$rowid] = $item->_as_array();
 		}
 		
-		$storage_driver = '\\'.ucfirst($this->config['storage']);
-		$storage_driver::set($this->config['storage_key'], serialize($items), $this->config['cookie_expire']);
+		call_user_func(array($this->storage_class, 'set'), $this->config['storage_key'], serialize($items), $this->config['cookie_expire']);
 	}
 	
 	/**
