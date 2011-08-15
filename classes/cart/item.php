@@ -95,6 +95,16 @@ class Cart_Item {
 	}
 	
 	/**
+	 * Returns the item's rowid
+	 *
+	 * @return	string	the item's rowid
+	 */
+	public function get_rowid()
+	{
+		return $this->rowid;
+	}
+	
+	/**
 	 * Returns the items total price
 	 *
 	 * @param	bool	$formatted		whether to format the returned price
@@ -151,6 +161,8 @@ class Cart_Item {
 			$this->options[$_key] = $value;
 		}
 		
+		$this->rowid = $this->cart->_update_rowid($this->rowid);
+		
 		return $this;
 	}
 	
@@ -162,7 +174,7 @@ class Cart_Item {
 	public function delete_option($key)
 	{
 		unset($this->options[$key]);
-		
+		$this->rowid = $this->cart->_update_rowid($this->rowid);
 		return $this;
 	}
 	

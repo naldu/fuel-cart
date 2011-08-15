@@ -151,8 +151,8 @@ class Cart_Basket {
 		}
 		else
 		{
+			$values['__itemoptions'] = $options;
 			$item = new \Cart_Item($values, &$this, $rowid);
-			count($options) > 0 and $item->set_option($options);
 			$this->items[$rowid] =& $item;
 		}
 
@@ -221,6 +221,24 @@ class Cart_Basket {
 			return number_format($price, 2, $this->config['point_sep'], $this->config['thousands_sep']);
 		}
 		return round($price, 2);
+	}
+	
+	/**
+	 * Updates an items rowid.
+	 *
+	 * @param	string	$rowid		item's rowid
+	 * @return	string	the new rowid
+	 */
+	public function _update_rowid($rowid)
+	{
+		$item = $this->items[$rowid];
+		$new_rowid = $item->get_id().'::'.sha1(var_export($item->get_options(), true));
+		if($rowid !== $new_rowid)
+		{
+			$this->items[$new_rowid] = $item;
+			unset($this->items[$rowid]);
+		}
+		return $new_rowid;
 	}
 	
 }
