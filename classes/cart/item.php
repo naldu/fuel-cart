@@ -15,12 +15,33 @@ namespace Cart;
 
 class Cart_Item {
 
-	
+	/**
+	 * Item values
+	 */
 	protected $values = array();
+	
+	/**
+	 * Item values
+	 */
 	protected $options = array();
+	
+	/**
+	 * Cart
+	 */
 	protected $cart;
+	
+	/**
+	 * Cart rowid
+	 */
 	protected $rowid;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param	array	$values		an array of item values
+	 * @param	object	$cart		the cart it resides in
+	 * @param	array	$rowid		cart rowid
+	 */
 	public function __construct($values, $cart, $rowid)
 	{
 		$this->cart = $cart;

@@ -17,6 +17,10 @@ namespace Cart;
  * Exception for invalid cart instance retrieval.
  */
 class InvalidCartException extends \Fuel_Exception {}
+
+/**
+ * Exception for invalid cart item insert.
+ */
 class InvalidCartItemException extends \Fuel_Exception {}
 
 
@@ -26,6 +30,12 @@ abstract class Cart {
 	protected static $instances = array();
 	protected static $instance = null;
 	
+	/**
+	 * Basket factory. Returns a new Cart_Basket.
+	 *
+	 * @param	string	$cart	the cart identifier.
+	 * @return	object	Cart_Basket instance
+	 */
 	public static function factory($cart = 'default')
 	{
 		if(array_key_exists($cart, static::$instances))
@@ -53,6 +63,12 @@ abstract class Cart {
 		return static::$instances[$cart];
 	}
 	
+	/**
+	 * Resturns a Cart_Basket instance
+	 *
+	 * @param	string	$cart	the cart identifier.
+	 * @return	object	Cart_Basket instance
+	 */
 	public static function instance($cart = 'default')
 	{
 		if(array_key_exists($cart, static::$instances))
@@ -62,6 +78,9 @@ abstract class Cart {
 		return static::factory($cart);
 	}
 	
+	/**
+	 * Method passthrough for static usage.
+	 */
 	public static function __callStatic($method, $args)
 	{
 		static::$instance or static::$instance = static::instance();
@@ -74,6 +93,9 @@ abstract class Cart {
 		throw new \BadMethodCallException('Invalid method: '.get_called_class().'::'.$method);
 	}
 
+	/**
+	 * Class init.
+	 */
 	public static function _init()
 	{
 		\Config::load('cart', true);
