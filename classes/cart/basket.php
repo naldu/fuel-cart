@@ -168,7 +168,7 @@ class Cart_Basket {
 		
 		array_key_exists('qty', $values) or $values['qty'] = 1;
 		
-		$rowid = $values['id'].'::'.sha1(var_export($options, true));
+		$rowid = $values['id'].'::'.md5(var_export($options, true));
 		
 		if(array_key_exists($rowid, $this->items))
 		{
@@ -273,7 +273,7 @@ class Cart_Basket {
 	public function _update_rowid($rowid)
 	{
 		$item = $this->items[$rowid];
-		$new_rowid = $item->get_id().'::'.sha1(var_export($item->get_options(), true));
+		$new_rowid = $item->get_id().'::'.md5(var_export($item->get_options(), true));
 		if($rowid !== $new_rowid)
 		{
 			$this->items[$new_rowid] = $item;
