@@ -51,14 +51,16 @@ abstract class Cart {
 		}
 		
 		$config = $config + static::$default;
-		
 		$config['storage_key'] = \Config::get('cart.storage_prefix', '').$cart.\Config::get('cart.storage_suffix');
 		
-		$instance = new \Cart_Basket($config);
+		$driver = '\\Cart_'.ucfirst($config['driver']);
+		if( ! class_exists($driver, true))
+		{
+			throw new \InvalidCartException('Unknown cart driver: '.$config['driver'].' ('.$driver.')');
+		}
 		
+		$instance = new $driver($config);
 		static::$instances[$cart] =& $instance;
-				
-		\Event::register('shutdown', array($instance, 'save'));
 
 		return static::$instances[$cart];
 	}
@@ -69,8 +71,9 @@ abstract class Cart {
 	 * @param	string	$cart	the cart identifier.
 	 * @return	object	Cart_Basket instance
 	 */
-	public static function instance($cart = 'default')
+	public static function instance($cart = null)
 	{
+		$cart or $cart = \Config::get('cart.default_cart', 'default');
 		if(array_key_exists($cart, static::$instances))
 		{
 			return static::$instances[$cart];

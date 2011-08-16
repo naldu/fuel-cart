@@ -28,9 +28,9 @@ return array(
 	'default' => array(
 		'tax'			=> 0.19,
 		'name'			=> 'Cart',
-		'point_sep'		=> '.',
+		'dec_point'		=> '.',
 		'thousands_sep'	=> '',
-		'storage'		=> 'cookie', // Can be cookie or session
+		'driver'		=> 'session',
 		'cookie_expire'	=> 0,
 	),
 	
