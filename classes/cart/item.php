@@ -95,7 +95,7 @@ class Cart_Item {
 	 */
 	public function get_tax()
 	{
-		$tax = array_key_exists('tax', $this->values) ? $this->values['tax'] : $this->cart->tax();
+		return array_key_exists('tax', $this->values) ? $this->values['tax'] : $this->cart->tax();
 	}
 	
 	/**
@@ -128,7 +128,7 @@ class Cart_Item {
 	{
 		$price = (float) $this->values['price'];
 		
-		$include_tax and $price += $this->_price_tax($price);
+		$include_tax and $price = $this->_price_tax($price);
 		
 		foreach($this->options as $option)
 		{
@@ -151,9 +151,9 @@ class Cart_Item {
 	protected function _price_tax($price)
 	{
 		$tax = $this->get_tax();
-
-		is_array($tax) or $tax = array($tax);
 		
+		is_array($tax) or $tax = array($tax);
+				
 		foreach($tax as $_tax)
 		{
 			if(is_string($_tax) and substr($_tax, 0, 1) === '+')
@@ -162,7 +162,7 @@ class Cart_Item {
 			}
 			else
 			{
-				$price *= (float) $_tax;
+				$price += (float) $price * $_tax;
 			}
 		}
 		
