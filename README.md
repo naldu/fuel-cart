@@ -13,15 +13,11 @@ The Cart package handles one or multiple carts. Some specs:
 
 # Install
 
-Io install this package simply add this source to your package configuration file:
-
-	http://github.com/FrenkyNet
-
-and then you can simply type in:
+Io install this package simply type in:
 
 	php oil package install cart
 	
-and you're off
+and you're off. Or download it manually and place in you packages directory.
 
 # Configuration
 
