@@ -34,6 +34,7 @@ abstract class Cart {
 	 * Basket factory. Returns a new Cart_Basket.
 	 *
 	 * @param	string	$cart	the cart identifier.
+	 * @param	array	$config		aditional config array
 	 * @return	object	Cart_Basket instance
 	 */
 	public static function factory($cart = 'default', $config = array())
@@ -55,7 +56,7 @@ abstract class Cart {
 		
 		$config = $config + $cart_config;
 		$config = $config + static::$default;
-		$config['storage_key'] = \Config::get('cart.storage_prefix', '').$key.\Config::get('cart.storage_suffix');
+		$config['storage_key'] = \Config::get('cart.storage_prefix', '').$cart.\Config::get('cart.storage_suffix');
 		
 		$driver = '\\Cart_'.ucfirst($config['driver']);
 		if( ! class_exists($driver, true))
