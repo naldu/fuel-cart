@@ -19,6 +19,7 @@ Autoloader::add_classes(array(
 	'Cart\\InvalidCartItemException'	=> __DIR__.'/classes/cart.php',
 	'Cart\\Cart_Item'					=> __DIR__.'/classes/cart/item.php',
 	'Cart\\Cart_Driver'					=> __DIR__.'/classes/cart/driver.php',
+	'Cart\\Cart_Auth'					=> __DIR__.'/classes/cart/Auth.php',
 	'Cart\\Cart_Cookie'					=> __DIR__.'/classes/cart/cookie.php',
 	'Cart\\Cart_Session'				=> __DIR__.'/classes/cart/session.php',
 ));

@@ -177,7 +177,7 @@ class Cart_Item {
 	 */
 	public function get_subtotal($formatted = true, $include_tax = false)
 	{
-		$subtotal = $this->get_price(false, $include_tax);
+		$subtotal = $this->get_price(false, $include_tax) * $this->get_qty();
 		
 		if($formatted)
 		{
