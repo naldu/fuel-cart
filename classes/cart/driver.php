@@ -33,10 +33,9 @@ abstract class Cart_Driver {
 	
 	public function __construct($config)
 	{
-	
-		\Event::register('shutdown', array($this, 'save'));
-		
 		$this->config = $config;
+		
+		$this->config['auto_save'] and \Event::register('shutdown', array($this, 'save'));
 						
 		$items = $this->_get($this->config['storage_key']);
 		

@@ -36,8 +36,10 @@ abstract class Cart {
 	 * @param	string	$cart	the cart identifier.
 	 * @return	object	Cart_Basket instance
 	 */
-	public static function factory($cart = 'default')
+	public static function factory($cart = 'default', $subcart = '')
 	{
+		$cart .= $subcart;
+		
 		if(array_key_exists($cart, static::$instances))
 		{
 			return static::$instances[$cart];
@@ -68,17 +70,18 @@ abstract class Cart {
 	/**
 	 * Resturns a Cart_Basket instance
 	 *
-	 * @param	string	$cart	the cart identifier.
+	 * @param	string	$cart		the cart identifier.
+	 * @param	string	$sub_cart	the cart sub identifier.
 	 * @return	object	Cart_Basket instance
 	 */
-	public static function instance($cart = null)
+	public static function instance($cart = null, $subcart = '')
 	{
 		$cart or $cart = \Config::get('cart.default_cart', 'default');
-		if(array_key_exists($cart, static::$instances))
+		if(array_key_exists($cart.$subcart, static::$instances))
 		{
-			return static::$instances[$cart];
+			return static::$instances[$cart.$subcart];
 		}
-		return static::factory($cart);
+		return static::factory($cart, $subcart);
 	}
 	
 	/**

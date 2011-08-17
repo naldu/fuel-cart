@@ -32,6 +32,7 @@ return array(
 		'thousands_sep'	=> '',
 		'driver'		=> 'session',
 		'cookie_expire'	=> 0,
+		'auto_save'		=> true,
 	),
 	
 	'carts' => array(
