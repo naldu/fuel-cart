@@ -36,24 +36,26 @@ abstract class Cart {
 	 * @param	string	$cart	the cart identifier.
 	 * @return	object	Cart_Basket instance
 	 */
-	public static function factory($cart = 'default', $subcart = '')
+	public static function factory($cart = 'default', $config = array())
 	{
-		$cart .= $subcart;
+		$key = $cart;
+		empty($config) or $key.= md5(var_export($config, true));
 		
-		if(array_key_exists($cart, static::$instances))
+		if(array_key_exists($key, static::$instances))
 		{
-			return static::$instances[$cart];
+			return static::$instances[$key];
 		}
 		
-		$config = \Config::get('cart.carts.'.$cart);
+		$cart_config = \Config::get('cart.carts.'.$cart);
 		
-		if( ! is_array($config))
+		if( ! is_array($cart_config))
 		{
 			throw new \InvalidCartException('Could not instantiate card: '.$cart);
 		}
 		
+		$config = $config + $cart_config;
 		$config = $config + static::$default;
-		$config['storage_key'] = \Config::get('cart.storage_prefix', '').$cart.\Config::get('cart.storage_suffix');
+		$config['storage_key'] = \Config::get('cart.storage_prefix', '').$key.\Config::get('cart.storage_suffix');
 		
 		$driver = '\\Cart_'.ucfirst($config['driver']);
 		if( ! class_exists($driver, true))
@@ -62,26 +64,30 @@ abstract class Cart {
 		}
 		
 		$instance = new $driver($config);
-		static::$instances[$cart] =& $instance;
+		static::$instances[$key] =& $instance;
 
-		return static::$instances[$cart];
+		return static::$instances[$key];
 	}
 	
 	/**
 	 * Resturns a Cart_Basket instance
 	 *
 	 * @param	string	$cart		the cart identifier.
-	 * @param	string	$sub_cart	the cart sub identifier.
+	 * @param	array	$config		aditional config array
 	 * @return	object	Cart_Basket instance
 	 */
-	public static function instance($cart = null, $subcart = '')
+	public static function instance($cart = null, $config = array())
 	{
 		$cart or $cart = \Config::get('cart.default_cart', 'default');
-		if(array_key_exists($cart.$subcart, static::$instances))
+		
+		$key = $cart;
+		empty($config) or $key.= md5(var_export($config, true));
+		
+		if(array_key_exists($key, static::$instances))
 		{
-			return static::$instances[$cart.$subcart];
+			return static::$instances[$key];
 		}
-		return static::factory($cart, $subcart);
+		return static::factory($cart, $config);
 	}
 	
 	/**
