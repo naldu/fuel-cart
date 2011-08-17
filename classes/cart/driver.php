@@ -176,7 +176,7 @@ abstract class Cart_Driver {
 		
 		if(array_key_exists($rowid, $this->items))
 		{
-			$this->items[$rowid]->update('qty', $this->items[$id]->get_qty() + $values['qty']);
+			$this->items[$rowid]->update('qty', $this->items[$rowid]->get_qty() + $values['qty']);
 		}
 		else
 		{

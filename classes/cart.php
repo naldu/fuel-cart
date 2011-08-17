@@ -67,7 +67,7 @@ abstract class Cart {
 		{
 			throw new \InvalidCartException('Unknown cart driver: '.$config['driver'].' ('.$driver.')');
 		}
-		
+				
 		$instance = new $driver($config);
 		static::$instances[$key] =& $instance;
 

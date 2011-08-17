@@ -30,7 +30,7 @@ return array(
 		'name'			=> 'Cart',
 		'dec_point'		=> '.',
 		'thousands_sep'	=> '',
-		'driver'		=> 'session',
+		'driver'		=> 'cookie',
 		'cookie_expire'	=> 0,
 		'auto_save'		=> true,
 	),
