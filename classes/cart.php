@@ -56,7 +56,11 @@ abstract class Cart {
 		
 		$config = $config + $cart_config;
 		$config = $config + static::$default;
-		$config['storage_key'] = \Config::get('cart.storage_prefix', '').$cart.\Config::get('cart.storage_suffix');
+		
+		$storage_prefix = array_key_exists('storage_prefix', $config) ? $config['storage_prefix'] : \Config::get('cart.storage_prefix', 'fuel_');
+		$storage_suffix = array_key_exists('storage_suffix', $config) ? $config['storage_suffix'] : \Config::get('cart.storage_suffix', '_cart');
+		
+		$config['storage_key'] = $storage_prefix.$cart.$storage_suffix;
 		
 		$driver = '\\Cart_'.ucfirst($config['driver']);
 		if( ! class_exists($driver, true))
