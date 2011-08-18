@@ -45,7 +45,8 @@ abstract class Cart_Driver {
 		
 		foreach($items as $rowid => $item)
 		{
-			$this->items[$rowid] = new \Cart_Item($item, &$this, $rowid);
+			$content = is_object($item) ? $item->_as_array() : $item;
+			$this->items[$rowid] = new \Cart_Item($content, &$this, $rowid);
 		}
 	}
 	
