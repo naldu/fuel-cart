@@ -36,8 +36,10 @@ abstract class Cart_Driver {
 		$this->config = $config;
 		
 		$this->config['auto_save'] and \Event::register('shutdown', array($this, 'save'));
+		
+		$items = $this->config_get('items', '');
 						
-		$items = $this->_get($this->config['storage_key']);
+		empty($items) and $items = $this->_get($this->config['storage_key']);
 		
 		is_string($items) and $items = unserialize(stripslashes($items));
 		
