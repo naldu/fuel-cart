@@ -45,4 +45,15 @@ return array(
 			'tax'	=> 0.08
 		), */
 	),
+
+	'naldu' => array(
+		'default'	=> array(),
+		
+		// Add your carts below
+		
+		/* 'your_cart' => array(
+			'name'	=> 'My Cart',
+			'tax'	=> 0.08
+		), */
+	),
 );
